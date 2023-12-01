@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Transactional } from 'typeorm-transactional';
 
 import { type PageDto } from '../../common/dto/page.dto';
-import { CreatePostCommand } from './commands/create-post.command';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { type PostDto } from './dtos/post.dto';
 import { type PostPageOptionsDto } from './dtos/post-page-options.dto';
@@ -18,14 +16,16 @@ export class PostService {
   constructor(
     @InjectRepository(PostEntity)
     private postRepository: Repository<PostEntity>,
-    private commandBus: CommandBus,
   ) {}
 
   @Transactional()
-  createPost(userId: Uuid, createPostDto: CreatePostDto): Promise<PostEntity> {
-    return this.commandBus.execute<CreatePostCommand, PostEntity>(
-      new CreatePostCommand(userId, createPostDto),
-    );
+  createPost(userId: Uuid, createPostDto: CreatePostDto): any {
+    // Add a logic to create post and return
+    // just a sample logic
+    return {
+      userId,
+      createPostDto,
+    };
   }
 
   async getAllPost(
