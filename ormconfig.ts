@@ -8,6 +8,7 @@ import { SnakeNamingStrategy } from './src/snake-naming.strategy';
 
 dotenv.config();
 
+// eslint-disable-next-line canonical/no-unused-exports
 export const dataSource = new DataSource({
   type: 'mysql',
   host: process.env.DB_HOST,

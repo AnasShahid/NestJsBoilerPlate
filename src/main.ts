@@ -38,7 +38,7 @@ export async function bootstrap(): Promise<NestExpressApplication> {
   // app.setGlobalPrefix('/api'); use api as global prefix if you don't have subdomain
   app.use(
     rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
+      windowMs: 5 * 60 * 1000, // 15 minutes
       max: 100, // limit each IP to 100 requests per windowMs
     }),
   );
@@ -105,4 +105,5 @@ export async function bootstrap(): Promise<NestExpressApplication> {
   return app;
 }
 
+//eslint-disable-next-line unicorn/prefer-top-level-await
 void bootstrap();

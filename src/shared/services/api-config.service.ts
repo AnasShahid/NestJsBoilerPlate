@@ -56,7 +56,7 @@ export class ApiConfigService {
     return this.getString('FALLBACK_LANGUAGE');
   }
 
-  get postgresConfig(): TypeOrmModuleOptions {
+  get databaseConfig(): TypeOrmModuleOptions {
     let entities = [
       __dirname + '/../../modules/**/*.entity{.ts,.js}',
       __dirname + '/../../modules/**/*.view-entity{.ts,.js}',
@@ -109,15 +109,16 @@ export class ApiConfigService {
   }
 
   get awsS3Config() {
-    const awsEnabled = this.getBoolean('ENABLE_AWS');
+    const isAwsEnabled = this.getBoolean('ENABLE_AWS');
 
-    if (awsEnabled) {
+    if (isAwsEnabled) {
       return {
         bucketRegion: this.getString('AWS_S3_BUCKET_REGION'),
         bucketApiVersion: this.getString('AWS_S3_API_VERSION'),
         bucketName: this.getString('AWS_S3_BUCKET_NAME'),
       };
     }
+
     return {};
   }
 
