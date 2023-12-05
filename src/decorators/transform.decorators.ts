@@ -2,7 +2,7 @@ import { Transform, TransformationType } from 'class-transformer';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import { castArray, isArray, isNil, map, trim } from 'lodash';
 
-import { GeneratorProvider } from '../providers';
+import { GENERATOR_PROVIDER } from '../providers';
 
 /**
  * @description trim spaces from start and end, replace multiple spaces with one.
@@ -138,11 +138,11 @@ export function S3UrlParser(): PropertyDecorator {
 
     switch (params.type) {
       case TransformationType.CLASS_TO_PLAIN: {
-        return GeneratorProvider.getS3PublicUrl(key);
+        return GENERATOR_PROVIDER.getS3PublicUrl(key);
       }
 
       case TransformationType.PLAIN_TO_CLASS: {
-        return GeneratorProvider.getS3Key(key);
+        return GENERATOR_PROVIDER.getS3Key(key);
       }
 
       default: {

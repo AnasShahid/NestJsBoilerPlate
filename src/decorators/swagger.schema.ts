@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types,@typescript-eslint/no-unsafe-argument */
-import { type Type } from '@nestjs/common';
-import { applyDecorators, UseInterceptors } from '@nestjs/common';
+import { applyDecorators, type Type, UseInterceptors } from '@nestjs/common';
 import {
   PARAMTYPES_METADATA,
   ROUTE_ARGS_METADATA,

@@ -1,23 +1,23 @@
 import { v1 as uuid } from 'uuid';
 
-export class GeneratorProvider {
-  static uuid(): string {
+export const GENERATOR_PROVIDER = {
+  uuid(): string {
     return uuid();
-  }
+  },
 
-  static fileName(ext: string): string {
-    return GeneratorProvider.uuid() + '.' + ext;
-  }
+  fileName(ext: string): string {
+    return GENERATOR_PROVIDER.uuid() + '.' + ext;
+  },
 
-  static getS3PublicUrl(key: string): string {
+  getS3PublicUrl(key: string): string {
     if (!key) {
       throw new TypeError('key is required');
     }
 
     return `https://s3.${process.env.AWS_S3_BUCKET_NAME_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/${key}`;
-  }
+  },
 
-  static getS3Key(publicUrl: string): string {
+  getS3Key(publicUrl: string): string {
     if (!publicUrl) {
       throw new TypeError('key is required');
     }
@@ -31,13 +31,13 @@ export class GeneratorProvider {
     }
 
     return exec[0];
-  }
+  },
 
-  static generateVerificationCode(): string {
+  generateVerificationCode(): string {
     return Math.floor(1000 + Math.random() * 9000).toString();
-  }
+  },
 
-  static generatePassword(): string {
+  generatePassword(): string {
     const lowercase = 'abcdefghijklmnopqrstuvwxyz';
     const uppercase = lowercase.toUpperCase();
     const numbers = '0123456789';
@@ -51,16 +51,16 @@ export class GeneratorProvider {
     }
 
     return text;
-  }
+  },
 
   /**
    * generate random string
    * @param length
    */
-  static generateRandomString(length: number): string {
+  generateRandomString(length: number): string {
     return Math.random()
       .toString(36)
       .replaceAll(/[^\dA-Za-z]+/g, '')
       .slice(0, Math.max(0, length));
-  }
-}
+  },
+};

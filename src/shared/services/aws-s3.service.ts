@@ -2,13 +2,13 @@ import { S3 } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
 import mime from 'mime-types';
 
-import { IFile } from '../../interfaces';
+import { type IFile } from '../../interfaces';
 import { ApiConfigService } from './api-config.service';
 import { GeneratorService } from './generator.service';
 
 @Injectable()
 export class AwsS3Service {
-  private readonly s3!: S3;
+  private readonly s3: S3 | null = null;
 
   constructor(
     public configService: ApiConfigService,
@@ -25,7 +25,7 @@ export class AwsS3Service {
   }
 
   async uploadImage(file: IFile): Promise<string | null> {
-    if (this.s3) {
+    if (this.s3 != null) {
       const fileName = this.generatorService.fileName(
         <string>mime.extension(file.mimetype),
       );
@@ -38,8 +38,8 @@ export class AwsS3Service {
       });
 
       return key;
-    } else {
-      return null;
     }
+
+    return null;
   }
 }

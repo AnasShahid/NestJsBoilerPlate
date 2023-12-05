@@ -14,7 +14,7 @@ import {
 
 /**
  * Abstract Entity
- * @author Narek Hakobyan <narek.hakobyan.07@gmail.com>
+ *
  *
  * @description This class is an abstract class for all entities.
  * It's experimental and recommended using it only in microservice architecture,

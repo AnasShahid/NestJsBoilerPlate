@@ -33,7 +33,7 @@ import { SharedModule } from './shared/shared.module';
     TypeOrmModule.forRootAsync({
       imports: [SharedModule],
       useFactory: (configService: ApiConfigService) =>
-        configService.postgresConfig,
+        configService.databaseConfig,
       inject: [ApiConfigService],
       dataSourceFactory: (options) => {
         if (!options) {

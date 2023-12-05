@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToClass } from 'class-transformer';
 import { type FindOptionsWhere, Repository } from 'typeorm';
 import { Transactional } from 'typeorm-transactional';
 
@@ -10,7 +9,7 @@ import { IFile } from '../../interfaces';
 import { AwsS3Service } from '../../shared/services/aws-s3.service';
 import { ValidatorService } from '../../shared/services/validator.service';
 import { UserRegisterDto } from '../auth/dto/user-register.dto';
-import { CreateSettingsDto } from './dtos/create-settings.dto';
+import { type CreateSettingsDto } from './dtos/create-settings.dto';
 import { type UserDto } from './dtos/user.dto';
 import { type UsersPageOptionsDto } from './dtos/users-page-options.dto';
 import { UserEntity } from './user.entity';
@@ -58,7 +57,7 @@ export class UserService {
     userRegisterDto: UserRegisterDto,
     file?: IFile,
   ): Promise<UserEntity> {
-    const user: any = this.userRepository.create(userRegisterDto);
+    const user: UserEntity = this.userRepository.create(userRegisterDto);
 
     if (file && !this.validatorService.isImage(file.mimetype)) {
       throw new FileNotImageException();
@@ -69,14 +68,6 @@ export class UserService {
     }
 
     await this.userRepository.save(user);
-
-    user.settings = await this.createSettings(
-      user.id,
-      plainToClass(CreateSettingsDto, {
-        isEmailVerified: false,
-        isPhoneVerified: false,
-      }),
-    );
 
     return user;
   }

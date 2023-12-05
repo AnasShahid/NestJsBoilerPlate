@@ -19,13 +19,13 @@ export class PostService {
   ) {}
 
   @Transactional()
-  createPost(userId: Uuid, createPostDto: CreatePostDto): any {
+  createPost(userId: Uuid, createPostDto: CreatePostDto): Promise<PostEntity> {
     // Add a logic to create post and return
     // just a sample logic
-    return {
-      userId,
-      createPostDto,
-    };
+    //eslint-disable-next-line no-console
+    console.log(userId, createPostDto.title);
+
+    return Promise.resolve(new PostEntity());
   }
 
   async getAllPost(
